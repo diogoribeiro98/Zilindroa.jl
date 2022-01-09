@@ -5,7 +5,7 @@ struct Opps
     tcoord      :: Array{Float64,1}
 
     aux_vex_1     :: Array{Float64,1}
-    aux_vex_1     :: Array{Float64,1}
+    aux_vex_2     :: Array{Float64,1}
     
     #Operators
     Dr          :: SparseMatrixCSC{Float64,Int64}
