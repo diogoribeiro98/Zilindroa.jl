@@ -36,4 +36,10 @@ include("./sim_utils/welcome_message.jl")
 #Solvers
 include("./solvers/Zilindroa_solver.jl")
 
+#template runs
+include("./template_runs/simple_run.jl")
+
+
+export run_Zilindroa
+
 end
