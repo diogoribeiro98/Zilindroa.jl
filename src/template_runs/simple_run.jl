@@ -60,12 +60,10 @@ max_runtime     = max_run_time  ,
 #Spacial variables
 rmin           =    Rcylinder   ,
 rmax           =    Rcavity     ,
-xnodes         =    Nnodes[1]   ,
+rnodes         =    Nodes[1]   ,
 
 #Spacial variables
-ymin           =    -Rcavity    ,
-ymax           =    Rcavity     ,
-ynodes         =    Nnodes      ,
+thnodes         =    Nodes[2]      ,
 
 #Initial Conditions
 A0              =   Gaussian_pulse[1] , #3.5         ,
