@@ -11,9 +11,9 @@ function print_parameters_to_screen(p::Param)
     rmax        = p.rmax
     Nr          = p.rnodes
 
-    Nt          = p.tnodes
+    Nt          = p.thnodes
 
-    dr      = (xmax - xmin)/(Nr-1)
+    dr      = (rmax - rmin)/(Nr-1)
     dt      = 2*pi/Nt
 
     #Print information
@@ -21,7 +21,7 @@ function print_parameters_to_screen(p::Param)
     println("Parameter Reader:")
     println("---------------------------------------------")
     println("Grid Information:")
-    println("r      = [" , tmin , "," , tmax ,"]" )
+    println("r      = [" , rmin , "," , rmax ,"]" )
     println("t      = [" , 0    , "," , 2*pi ,"]" )
     println("dr     = "  , dr) 
     println("dtheta = "  , dt)

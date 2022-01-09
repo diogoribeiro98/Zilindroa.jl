@@ -8,7 +8,7 @@ function save_parameters_to_file( p::Param , fid::HDF5.File  )
     HDF5.attributes(fid)["rmax"]      = p.rmax
     HDF5.attributes(fid)["rnodes"]    = p.rnodes
 
-    HDF5.attributes(fid)["tnodes"]    = p.tnodes
+    HDF5.attributes(fid)["thnodes"]    = p.thnodes
 
     #Initial condition
     HDF5.attributes(fid)["A0"]      = p.A0
