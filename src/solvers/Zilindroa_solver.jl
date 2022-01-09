@@ -5,12 +5,15 @@ function Zilndroa_Diffeq!(df,f,param,t)
     Opps        = param[1]
     vars        = param[2]
 
-    RHS     = Opps.DiffO_1
+    r = Opps.rcoord
+    θ = Opps.tcoord
+
+    RHS = Opps.DiffO_1
     Dr  = Opps.Dr
     Dθ  = Opps.Dθ
 
     dr_ψ  = Opps.aux_vex_1
-    dθ_ψ  = Opps.aux_vex_1
+    dθ_ψ  = Opps.aux_vex_2
 
     #Fields of our problem (Julia changes the rhs if you change the lhs)
     ψ   = f.x[1]
@@ -24,23 +27,26 @@ function Zilndroa_Diffeq!(df,f,param,t)
 
     #Differential equation
     mul!(dψ , I ,  ϕ)
-    mul!(dϕ , F ,  ψ)
+    mul!(dϕ , RHS ,  ψ)
 
+    Nr      = vars.rnodes
+    Ntheta  = vars.thnodes
+    Ω       = vars.Ω
     #Boundary conditions
-    for i in 1:Nθ
-        idx = (i-1)*Nr+1
+    
+    for i in 1:Ntheta
     
         #Inner BC (Impedance)   
         idx = (i-1)*Nr+1 
-        dψ[idx] = Z(t , θ[i] ,  vars ) * ( dr_ψ[idx] - 0.5 * ψ[idx] / r[1] ) - Ω * dθ_ψ[idx]
-    
+        #dψ[idx] = Z(t , θ[i] ,  vars ) * ( dr_ψ[idx] - 0.5 * ψ[idx] / r[1] ) - Ω * dθ_ψ[idx]
+        dψ[idx] = 0
+        
         #Outer BC (reflective)
         idx = i*Nr 
         dψ[idx] = 0
     end
-    
-end
 
+end
 
 function solve_zilindroa_system(p_in::Param)
 
@@ -95,18 +101,9 @@ function solve_zilindroa_system(p_in::Param)
     println("Setting up inicial configuration...")
     ψ , dψ = get_gaussian_pulse( p , Operators)
 
-    U = ArrayPartition( Operators.BC_Mat * ψ , Operators.BC_Mat *dψ )
+    U = ArrayPartition( ψ , dψ )
     println("OK")
 
-    #Parameters
-    my_params = ( Operators , p)
-
-    #Problem ODE and integrator
-    prob = ODEProblem(  square_grid_KG! , U , tspan , my_params )
-   
-    integrator = init( prob , RK4() , save_everystep=false , dt=p.deltat , adaptive=false )
-
-    #Parameters
     my_params = ( Operators , p)
 
     #Problem ODE and integrator
