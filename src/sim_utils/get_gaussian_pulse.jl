@@ -28,8 +28,24 @@ function get_gaussian_pulse(p::Param , Opp::Opps)
 
     end
     
-    ψ  = reshape(ψ_matrix , Nx*Ny)
-    dψ = reshape(dψ_matrix , Nx*Ny)
+    ψ  = reshape(ψ_matrix  , Nr*Nθ)
+    dψ = reshape(dψ_matrix , Nr*Nθ)
+
+    #Make boundaries zeros
+    for i in 1:Nθ
+    
+        #Inner BC 
+        idx = (i-1)*Nr+1 
+        ψ[idx] = 0
+        dψ[idx] = 0
+    
+        #Outer BC 
+        idx = i*Nr 
+        ψ[idx] = 0
+        dψ[idx] = 0
+    end
+
+
 
     #Return initial state
     return ψ , dψ
