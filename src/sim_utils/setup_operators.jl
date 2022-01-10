@@ -11,13 +11,13 @@ function set_up_operator(p::Param)
     dr = (rmax - rmin)/(rnodes-1)
     r = [rmin + (i-1)*dr for i in 1:rnodes]
     
-    dth = 2*pi/thnodes
+    dth = 2*pi/(thnodes)
     theta = [ (i-1)*dth for i in 1:thnodes]
-
+    
     #Create Differential Operators 
     Dr  =   Diff_Operator_2D(1 ,1, [dr,dth] , [rnodes,thnodes]) 
     Drr =   Diff_Operator_2D(2 ,1, [dr,dth] , [rnodes,thnodes])
-   
+
     Dp  =  Diff_Operator_2D_Periodic(1 ,2, [dr,dth] , [rnodes,thnodes]) 
     Dpp =  Diff_Operator_2D_Periodic(2 ,2, [dr,dth] , [rnodes,thnodes])
     
@@ -27,7 +27,8 @@ function set_up_operator(p::Param)
         one_over_r2[i,i] = (1/r[1 + (i-1)%rnodes])^2
     end
 
-    RHS_Opp = sparse(Drr + (0.25)*one_over_r2*I  + one_over_r2*Dpp);
+    RHS_Opp = Drr + one_over_r2*Dpp + (0.25)*one_over_r2
+    #sparse(Drr + (0.25)*one_over_r2*I  + one_over_r2*Dpp);
 
     av1 = zeros(rnodes*thnodes)
     av2 = zeros(rnodes*thnodes)
