@@ -38,8 +38,8 @@ function Zilndroa_Diffeq!(df,f,param,t)
     
         #Inner BC (Impedance)   
         idx = (i-1)*Nr+1 
-        #dψ[idx] = Z(t , θ[i] ,  vars ) * ( dr_ψ[idx] - 0.5 * ψ[idx] / r[1] ) - Ω * dθ_ψ[idx]
-        dψ[idx] = 0
+        dψ[idx] = Z(t , θ[i] ,  vars ) * ( dr_ψ[idx] - 0.5 * ψ[idx] / r[1] ) - Ω * dθ_ψ[idx]
+        #dψ[idx] = 0
         
         #Outer BC (reflective)
         idx = i*Nr 
