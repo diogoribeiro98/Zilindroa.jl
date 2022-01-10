@@ -16,9 +16,13 @@ function Diff_Operator_1D(  derivative_order::Int , dx::T , N::Int ) where T
     #1st order derivative
     if( derivative_order == 1)
        
-        d1_1 = Array{T}([ -11.0/6.0  , 	3.0	, -3.0/2.0 , 	1.0/3.0	]/dx)
-        d1_2 = Array{T}([ -1.0/4.0  , -5.0/6.0	, 3.0/2.0 , 	-1.0/2.0	 , 1.0/12.0	]/dx)
-        d1_c = Array{T}([ 1.0/12.0  , 	-2.0/3.0	, 0 , 	2.0/3.0	 , -1.0/12.0	]/dx)
+       # d1_1 = Array{T}([ -11.0/6.0  , 	3.0	, -3.0/2.0 , 	1.0/3.0	]/dx)
+        #d1_2 = Array{T}([ -1.0/4.0  , -5.0/6.0	, 3.0/2.0 , 	-1.0/2.0	 , 1.0/12.0	]/dx)
+        #d1_c = Array{T}([ 1.0/12.0  , 	-2.0/3.0	, 0 , 	2.0/3.0	 , -1.0/12.0	]/dx)
+        
+        d1_1 = Array{T}([ -3/2.0    ,   2.0	        ,   -1.0/2.0    ]/dx)
+        d1_2 = Array{T}([  0.0      ,   -3/2.0      , 	2.0	        ,   -1.0/2.0  ]/dx)
+        d1_c = Array{T}([ 0         , 	-1.0/2.0	,   0           , 	1.0/2.0	 , 0.0  	]/dx)
         
         #Fill first line  and last
         for i in 1:length(d1_1)
@@ -56,11 +60,13 @@ function Diff_Operator_1D(  derivative_order::Int , dx::T , N::Int ) where T
     if( derivative_order == 2)
 
         blah = 1/ (dx^2)
-        d2_1 = Array{T}([ 35.0 / 12.0 , 	-26.0/3.0	, 19.0/2.0 , 	-14.0/3.0 , 11.0/12.0	] * blah) 
-        d2_2 = Array{T}([ 5.0 / 6.0 , 	-5.0/4.0	, -1.0/3.0 , 	7.0/6.0 , -1.0/2.0 , 1.0/12.0	] * blah )
-        d2_c = Array{T}([ -1.0/12.0  , 	4.0/3.0	, -5.0/2.0 , 	4.0/3.0	 , -1.0/12.0	]* blah )
-
-
+        #d2_1 = Array{T}([ 35.0 / 12.0 , 	-26.0/3.0	, 19.0/2.0 , 	-14.0/3.0 , 11.0/12.0	] * blah) 
+        #d2_2 = Array{T}([ 5.0 / 6.0 , 	-5.0/4.0	, -1.0/3.0 , 	7.0/6.0 , -1.0/2.0 , 1.0/12.0	] * blah )
+        #d2_c = Array{T}([ -1.0/12.0  , 	4.0/3.0	, -5.0/2.0 , 	4.0/3.0	 , -1.0/12.0	]* blah )
+        
+        d2_1 = Array{T}([ 2.0  , 	-5.0	, 4 , 	-5 ] * blah) 
+        d2_2 = Array{T}([ 1.0 , 	-2	, 1.0 ] * blah )
+        d2_c = Array{T}([ 0.0 , 1.0 , 	-2	, 1.0 , 0.0 ] * blah )
 
         #Fill first and last line
         for i in 1:length(d2_1)
@@ -201,3 +207,4 @@ function Diff_Operator_2D_Periodic( derivative_order::Int , index::Int , delta ,
         return
     end
 end
+
