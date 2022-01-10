@@ -15,8 +15,6 @@ function get_gaussian_pulse(p::Param , Opp::Opps)
     r   = Opp.rcoord
     θ   = Opp.tcoord
 
-    Dr  = Opp.Dr
-
     #Create initial state
     ψ_matrix = zeros( Nr , Nθ )
     dψ_matrix = zeros( Nr , Nθ )
@@ -24,8 +22,6 @@ function get_gaussian_pulse(p::Param , Opp::Opps)
     for i in 1:Nr , j in 1:Nθ
     
         ψ_matrix[i,j] = A0*cos( m*θ[j] ) * sin( ω*r[i] ) * exp( - 0.5* ( (r[i]-r0)/ σ)^2 )
-        dψ_matrix[i,j] = A0*cos( m*θ[j] ) * exp( - 0.5* ( (r[i]-r0)/ σ)^2 ) * ( ω*cos(ω*r[i]) - (r[i]-r0)*sin(ω*r[i])/σ^2  )
-
     end
     
     ψ  = reshape(ψ_matrix  , Nr*Nθ)
