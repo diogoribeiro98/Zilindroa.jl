@@ -36,6 +36,14 @@ include("./sim_utils/welcome_message.jl")
 #Solvers
 include("./solvers/Zilindroa_solver.jl")
 
+#Data analysis aids
+#include("./data_read_utils/get_field_energy.jl")
+#include("./data_read_utils/get_field_point.jl")
+#include("./data_read_utils/get_field_slice.jl")
+include("./data_read_utils/get_fields.jl")
+include("./data_read_utils/get_time_variables.jl")
+#include("./data_read_utils/get_space_variables.jl")
+
 #template runs
 include("./template_runs/simple_run.jl")
 
