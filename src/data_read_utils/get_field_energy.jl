@@ -71,9 +71,9 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     end
     
     # Total volume of space
-    Volume = ((ymax-ymin)*(xmax-xmin))
-    dV = dx*dy
-    I_factor = dV / Volume
+    Volume = pi*( rmax^2 - rmin^2)
+    #dV = dx*dy
+    #I_factor = dV / Volume
 
     #Create storage matrix
     Energy_matrix = zeros( rnodes , thnodes )
@@ -99,11 +99,11 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
         Energy_matrix = (vr.^2 .+ vy.^2 .+ dψ.^2) * r2_matrix
     
-        E = simpson_integration_2D(x , y ,Energy_matrix)
+        E = simpson_integration_2D(r , theta ,Energy_matrix)
 
         #Add to storage vectors  and normalize
         push!(t_vector, t)
-        push!(E_vector, I_factor*E  )
+        push!(E_vector, E/Volume  )
 
     end
 
