@@ -34,9 +34,9 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
     rmin = read_attribute(fid, "rmin")
     rmax = read_attribute(fid, "rmax")
-    Nx   = read_attribute(fid, "rnodes")
+    rnodes   = read_attribute(fid, "rnodes")
 
-    Ny   = read_attribute(fid, "thnodes")
+    thnodes   = read_attribute(fid, "thnodes")
 
     #Discretize space
     dr = (rmax - rmin)/(rnodes-1)
@@ -76,7 +76,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     I_factor = dV / Volume
 
     #Create storage matrix
-    Energy_matrix = zeros( Nx , Ny )
+    Energy_matrix = zeros( rnodes , thnodes )
 
     #Storage vectors
     E_vector = Float64[]
@@ -92,10 +92,10 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
         t, _ , _ , ψ , dψ = get_fields(fname,i)
         
         #Gradient term
-        Psi  = reshape(ψ, Nx*Ny)
+        Psi  = reshape(ψ, rnodes*thnodes)
 
-        vr = reshape( Drr * Psi ,  (Nx,Ny))
-        vp = reshape( one_over_r * Dp * Psi , (Nx,Ny))
+        vr = reshape( Drr * Psi ,  (rnodes,thnodes))
+        vp = reshape( one_over_r * Dp * Psi , (rnodes,thnodes))
 
         Energy_matrix = (vr.^2 .+ vy.^2 .+ dψ.^2) * r2_matrix
     
