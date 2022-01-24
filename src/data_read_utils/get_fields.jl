@@ -6,9 +6,9 @@ function get_fields( fname::String , itt::Int)
 
     rmin = read_attribute(fid, "rmin")
     rmax = read_attribute(fid, "rmax")
-    Nr   = read_attribute(fid, "rnodes")
+    rnodes   = read_attribute(fid, "rnodes")
 
-    Ny   = read_attribute(fid, "thnodes")
+    thnodes   = read_attribute(fid, "thnodes")
 
     #Discretize space
     dr = (rmax - rmin)/(rnodes-1)
@@ -30,7 +30,7 @@ function get_fields( fname::String , itt::Int)
     dset    = open_dataset(g1, dname )
     ttt     = read_attribute(dset,"time")
     
-    ψ = reshape(Array(dset) , Nx,Ny )
+    ψ = reshape(Array(dset) , rnodes,thnodes )
    
     #Get Derivative
     g1      = open_group(fid, "dψ")
@@ -39,7 +39,7 @@ function get_fields( fname::String , itt::Int)
     dset    = open_dataset(g1, dname )
     
     
-    dψ = reshape(Array(dset),Nx,Ny)
+    dψ = reshape(Array(dset),rnodes,thnodes)
 
     close(fid)
 
