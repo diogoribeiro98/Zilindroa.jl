@@ -46,6 +46,6 @@ function get_fields( fname::String , itt::Int)
     close(fid)
 
     #Return all data
-    return ttt , x , y , ψ , dψ
+    return ttt , r , theta , ψ , dψ
 
 end
