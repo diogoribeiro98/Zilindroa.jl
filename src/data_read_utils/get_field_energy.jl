@@ -97,7 +97,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
         vr = reshape( Drr * Psi ,  (rnodes,thnodes))
         vp = reshape( one_over_r * Dp * Psi , (rnodes,thnodes))
 
-        Energy_matrix = (vr.^2 .+ vp.^2 .+ dψ.^2) * r2_matrix
+        Energy_matrix = (vr.^2 .+ vp.^2 .+ dψ.^2) .* r2_matrix
     
         E = simpson_integration_2D(r , theta ,Energy_matrix)
 
