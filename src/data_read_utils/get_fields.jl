@@ -4,6 +4,8 @@ function get_fields( fname::String , itt::Int)
     #Get Variables  
     fid         = h5open( fname , "r")
 
+    max_iter = read_attribute(fid, "max_iter")
+
     rmin = read_attribute(fid, "rmin")
     rmax = read_attribute(fid, "rmax")
     rnodes   = read_attribute(fid, "rnodes")
