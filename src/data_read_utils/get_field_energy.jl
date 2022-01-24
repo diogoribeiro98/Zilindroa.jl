@@ -53,11 +53,11 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     Dpp =  Diff_Operator_2D_Periodic(2 ,2, [dr,dth] , [rnodes,thnodes])
     
     one_over_r  = spzeros(rnodes*thnodes,rnodes*thnodes)
-    r2_matrix = spzeros(rnodes*thnodes,rnodes*thnodes)
+    r_matrix = spzeros(rnodes*thnodes,rnodes*thnodes)
 
     for i in 1:rnodes*thnodes
         one_over_r[i,i] = (1/r[1 + (i-1)%rnodes])
-        r2_matrix[i,i] = (r[1 + (i-1)%rnodes])^2
+        r_matrix[i,i] = (r[1 + (i-1)%rnodes])
     end
     
     #Get max time iteration 
@@ -93,11 +93,13 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
         
         #Gradient term
         Psi  = reshape(ψ, rnodes*thnodes)
+        dPsi = reshape(dψ, rnodes*thnodes)
 
-        vr = reshape( Drr * Psi ,  (rnodes,thnodes))
-        vp = reshape( one_over_r * Dp * Psi , (rnodes,thnodes))
+        vr = reshape( r_matrix * Drr * Psi ,  (rnodes,thnodes))
+        vp = reshape( r_matrix * one_over_r * Dp * Psi , (rnodes,thnodes))
+        vt = reshape( r_matrix *  dPsi , (rnodes,thnodes))
 
-        Energy_matrix = (vr.^2 .+ vp.^2 .+ dψ.^2) .* r2_matrix
+        Energy_matrix = (vr.^2 .+ vp.^2 .+ vt.^2)
     
         E = simpson_integration_2D(r , theta ,Energy_matrix)
 
