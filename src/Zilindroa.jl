@@ -37,7 +37,7 @@ include("./sim_utils/welcome_message.jl")
 include("./solvers/Zilindroa_solver.jl")
 
 #Data analysis aids
-#include("./data_read_utils/get_field_energy.jl")
+include("./data_read_utils/get_field_energy.jl")
 #include("./data_read_utils/get_field_point.jl")
 #include("./data_read_utils/get_field_slice.jl")
 include("./data_read_utils/get_fields.jl")
@@ -49,5 +49,7 @@ include("./template_runs/simple_run.jl")
 
 
 export run_Zilindroa
+export get_time_variables , get_field_energy , get_fields
+#get_field_point, get_field_slice, get_fields
 
 end
